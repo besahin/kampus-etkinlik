@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-labelledby="t d">
+  <title id="t">Kampüs Etkinlikleri afişi</title>
+  <desc id="d">Pembe tonlu, dairesel şekillerle süslenmiş genel etkinlik afişi</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="hsl(334 65% 38%)"/>
+      <stop offset="1" stop-color="hsl(334 60% 22%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <circle cx="330" cy="90" r="120" fill="hsl(334 70% 60%)" opacity=".25"/>
+  <circle cx="60" cy="420" r="150" fill="hsl(334 70% 70%)" opacity=".18"/>
+  <circle cx="200" cy="250" r="70" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>
+  <circle cx="200" cy="250" r="45" fill="#fff" opacity=".9"/>
+  <text x="200" y="260" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-weight="bold" fill="hsl(334 65% 38%)">2026</text>
+  <text x="200" y="110" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="bold" fill="#fff">Kampüs</text>
+  <text x="200" y="150" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="bold" fill="#fff">Etkinlikleri</text>
+  <text x="200" y="400" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#fff" opacity=".9">Seminer · Atölye · Konferans</text>
+  <text x="200" y="430" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#fff" opacity=".9">Sosyal Etkinlikler</text>
+</svg>

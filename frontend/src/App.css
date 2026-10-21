@@ -26,16 +26,22 @@ img {
 
 
 
-header {
+.site-ust {
   background: var(--renk-ana);
   color: #fff;
   padding: 1rem;
 }
 
-header p {
+.site-baslik h1 {
+  color: #fff;
   margin: 0 0 .75rem 0;
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.site-baslik p {
+  margin: -.25rem 0 .75rem 0;
+  opacity: .9;
+  max-width: 60ch;
 }
 
 nav a {
@@ -241,7 +247,8 @@ table {
   }
 }
 
-#sonuc {
+#sonuc,
+.sonuc {
   margin: 0 0 1rem 0;
   color: #555;
 }
@@ -522,7 +529,8 @@ input:focus, select:focus, textarea:focus {
   animation-delay: .1s;
 }
 
-#sonuc {
+#sonuc,
+.sonuc {
   transition: opacity .2s ease;
 }
 

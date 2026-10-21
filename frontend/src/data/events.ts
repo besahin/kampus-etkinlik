@@ -1,4 +1,4 @@
-import type { CampusEvent } from "../types/campus-event";
+import type { CampusEvent, Category } from "../types/campus-event";
 
 export const events: CampusEvent[] = [
   {
@@ -73,3 +73,4 @@ export const events: CampusEvent[] = [
       "Öğrenci toplulukları sahne alacak. Dönemin yorgunluğunu atmak için tüm kampüs davetlidir."
   }
 ];
+export const categories: Category[] = [...new Set(events.map((e) => e.category))];

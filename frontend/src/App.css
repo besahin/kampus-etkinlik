@@ -5,6 +5,9 @@
   --renk-ana: hsl(var(--ton) 65% 38%);
   --renk-zemin: hsl(var(--ton) 30% 97%);
   --font: "Georgia", serif;
+  --bosluk-s: .5rem;
+  --renk-hata: crimson;
+  --kose: 8px;
 }
 
 * {
@@ -539,5 +542,134 @@ input:focus, select:focus, textarea:focus {
     animation-duration: .01ms !important;
     animation-delay: 0s !important;
     transition-duration: .01ms !important;
+  }
+}
+/* ============================================================
+   Sprint 6 eklemeleri
+   ============================================================ */
+
+.bolum-baslik {
+  margin-top: 0;
+}
+
+/* Link'in buton gibi görünen hali */
+a.buton,
+.etkinlik-karti a.buton {
+  display: inline-block;
+  background: var(--renk-ana);
+  color: #fff;
+  border: none;
+  padding: .6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: normal;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.buton:hover,
+.etkinlik-karti a.buton:hover {
+  opacity: .9;
+  text-decoration: none;
+}
+
+a.buton {
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+a.buton:active {
+  transform: scale(.97);
+}
+
+a.buton.ikincil,
+.etkinlik-karti a.buton.ikincil {
+  background: #fff;
+  color: var(--renk-ana);
+  border: 2px solid var(--renk-ana);
+  padding: calc(.6rem - 2px) calc(1.2rem - 2px);
+}
+
+.buton-sil {
+  background: var(--renk-hata);
+}
+
+/* Form hata metni ve bilgi mesajları */
+.hata-metni {
+  color: var(--renk-hata);
+  font-size: .85rem;
+  margin-top: .25rem;
+}
+
+.mesaj {
+  max-width: 560px;
+  padding: .75rem 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+.mesaj-basari {
+  background: #f0faf2;
+  border: 1px solid #2e8b4a;
+  color: #1d5a31;
+}
+
+/* Yönetim tablosu */
+.tablo {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.tablo th,
+.tablo td {
+  text-align: left;
+  padding: .6rem .75rem;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.tablo th {
+  background: var(--renk-ana);
+  color: #fff;
+}
+
+.islemler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bosluk-s);
+}
+
+@media (max-width: 699px) {
+  .tablo thead {
+    display: none;
+  }
+
+  .tablo,
+  .tablo tbody {
+    display: block;
+  }
+
+  .tablo tr {
+    display: block;
+    margin-bottom: 1rem;
+    padding: .5rem;
+    border: 1px solid #ddd;
+    border-radius: var(--kose);
+  }
+
+  .tablo td {
+    display: block;
+    border-bottom: none;
+    padding: .3rem .5rem;
+  }
+
+  .tablo td[data-baslik]::before {
+    content: attr(data-baslik) ": ";
+    font-weight: 700;
+  }
+
+  .tablo td:last-child::before {
+    display: block;
+    margin-bottom: .3rem;
   }
 }

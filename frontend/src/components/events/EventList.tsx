@@ -3,14 +3,12 @@ import EventCard from "./EventCard";
 
 interface EventListProps {
   events: CampusEvent[];
-  onShowDetail: (id: string) => void;
   emptyText?: string;
   limited?: boolean;
 }
 
 function EventList({
   events,
-  onShowDetail,
   emptyText = "Gösterilecek etkinlik yok.",
   limited
 }: EventListProps) {
@@ -25,7 +23,7 @@ function EventList({
   return (
     <section className="etkinlik-listesi" data-limit={limited ? "2" : undefined}>
       {events.map((event) => (
-        <EventCard key={event.id} event={event} onShowDetail={onShowDetail} />
+        <EventCard key={event.id} event={event} />
       ))}
     </section>
   );

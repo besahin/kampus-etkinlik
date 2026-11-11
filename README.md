@@ -4,7 +4,7 @@ https://beratefesahin-frontend.vercel.app
 
 Web Teknolojileri ve Programlama dersi proje ödevi. Öğrenci: Berat Efe Şahin — 2416501054
 
-Proje haftalık sprintlerle ilerler: **Sprint 1** sadece HTML, **Sprint 2** CSS ve responsive tasarım, **Sprint 3** vanilla JavaScript ile dinamik sayfalar, **Sprint 4** Vite + TypeScript + React, **Sprint 5** React bileşenlerine bölme (props, callback, lifting state), **Sprint 6 + Vize** React Router, Context ve yönetim paneli.
+Proje haftalık sprintlerle ilerler: **Sprint 1** sadece HTML, **Sprint 2** CSS ve responsive tasarım, **Sprint 3** vanilla JavaScript ile dinamik sayfalar, **Sprint 4** Vite + TypeScript + React, **Sprint 5** React bileşenlerine bölme (props, callback, lifting state), **Sprint 6 + Vize** React Router, Context ve yönetim paneli, **Sprint 7** Express ile REST API (backend).
 
 ## Canlı Adres
 
@@ -19,6 +19,16 @@ npm run dev
 ```
 
 Tarayıcıda `http://localhost:5173` adresini açın. Üretim derlemesini denemek için `npm run build` ve `npm run preview`.
+
+Backend (API) için ayrı bir terminalde:
+
+```
+cd backend
+npm install
+npm run dev
+```
+
+API `http://localhost:3000` adresinde çalışır. Ayrıntılar ve REST sözleşmesi için `backend/README.md` dosyasına bakın.
 
 ## Route Listesi
 
@@ -42,6 +52,14 @@ kampus-etkinlik/
   sprint1/            -> Sadece HTML iskeleti
   sprint2/            -> HTML + CSS
   sprint3/            -> HTML + CSS + JavaScript (ES modülleri)
+  backend/            -> Sprint 7: Node + Express REST API
+    src/
+      app.js  server.js
+      routes/event-routes.js
+      controllers/event-controller.js
+      data/events.js
+    requests/kampus-api.json   -> Postman koleksiyonu (6 istek)
+    .env.example  .gitignore  package.json  README.md
   frontend/           -> Sprint 4-6: Vite + React + TypeScript (güncel sürüm)
     public/afis.svg
     vercel.json       -> Doğrudan adres açılınca (/events gibi) index.html'e yönlendirir
@@ -62,6 +80,15 @@ kampus-etkinlik/
       main.tsx
   README.md
 ```
+
+## Sprint 7 — Neler Yapıldı?
+
+- Frontend'in yanına `backend/` klasörü açıldı; Express, dotenv ve cors kuruldu.
+- Kod görevlerine ayrıldı: `app.js` uygulamayı ve middleware'leri kurar, `server.js` portu dinler, route dosyası adresleri bağlar, controller isteği işleyip yanıt döndürür.
+- Port `.env` dosyasından okunur (`PORT=3000`); `.env` GitHub'a gitmez, örneği `.env.example` içindedir.
+- Endpoint'ler: `GET /health` (öğrenci numarası ile), `GET /events` (isteğe bağlı `?category=`), `GET /events/:id` (yoksa 404), `POST /events` (başarılıysa 201, eksik veri 400). Hatalar `{ "error": { "message": "..." } }` biçimindedir.
+- Veriler bellekte tutulur (6 etkinlik); sunucu yeniden başlayınca POST ile eklenenler kaybolur. Kalıcı veri Sprint 8'de MongoDB ile gelecek.
+- REST sözleşmesi `backend/README.md` içinde; 6 isteklik Postman koleksiyonu `backend/requests/kampus-api.json` dosyasında.
 
 ## Sprint 6 + Vize — Neler Yapıldı?
 

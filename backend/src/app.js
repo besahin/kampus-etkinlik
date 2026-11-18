@@ -27,6 +27,7 @@ app.use((req, res) => {
 // Beklenmeyen hatalar (örneğin bozuk JSON) da aynı biçimde dönsün
 app.use((err, req, res, next) => {
   const status = err.status || 500;
+  console.error(err.message);
   res.status(status).json({
     error: { message: status === 400 ? "Invalid JSON body" : "Server error" }
   });

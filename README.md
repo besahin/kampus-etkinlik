@@ -4,7 +4,7 @@ https://beratefesahin-frontend.vercel.app
 
 Web Teknolojileri ve Programlama dersi proje ödevi. Öğrenci: Berat Efe Şahin — 2416501054
 
-Proje haftalık sprintlerle ilerler: **Sprint 1** sadece HTML, **Sprint 2** CSS ve responsive tasarım, **Sprint 3** vanilla JavaScript ile dinamik sayfalar, **Sprint 4** Vite + TypeScript + React, **Sprint 5** React bileşenlerine bölme (props, callback, lifting state), **Sprint 6 + Vize** React Router, Context ve yönetim paneli, **Sprint 7** Express ile REST API (backend).
+Proje haftalık sprintlerle ilerler: **Sprint 1** sadece HTML, **Sprint 2** CSS ve responsive tasarım, **Sprint 3** vanilla JavaScript ile dinamik sayfalar, **Sprint 4** Vite + TypeScript + React, **Sprint 5** React bileşenlerine bölme (props, callback, lifting state), **Sprint 6 + Vize** React Router, Context ve yönetim paneli, **Sprint 7** Express ile REST API (backend), **Sprint 8** MongoDB ve Mongoose ile kalıcı veri.
 
 ## Canlı Adres
 
@@ -25,10 +25,12 @@ Backend (API) için ayrı bir terminalde:
 ```
 cd backend
 npm install
+cp .env.example .env     (Windows: copy .env.example .env)
+npm run seed
 npm run dev
 ```
 
-API `http://localhost:3000` adresinde çalışır. Ayrıntılar ve REST sözleşmesi için `backend/README.md` dosyasına bakın.
+`.env` içindeki `MONGODB_URI` kendi MongoDB adresinle değiştirilir (Atlas veya yerel); `npm run seed` 6 örnek etkinliği veritabanına ekler. API `http://localhost:3000` adresinde çalışır. Ayrıntılar ve REST sözleşmesi için `backend/README.md` dosyasına bakın.
 
 ## Route Listesi
 
@@ -52,13 +54,15 @@ kampus-etkinlik/
   sprint1/            -> Sadece HTML iskeleti
   sprint2/            -> HTML + CSS
   sprint3/            -> HTML + CSS + JavaScript (ES modülleri)
-  backend/            -> Sprint 7: Node + Express REST API
+  backend/            -> Sprint 7-8: Node + Express REST API + MongoDB (Mongoose)
     src/
-      app.js  server.js
+      app.js  server.js  seed.js
+      config/database.js
+      models/event-model.js
       routes/event-routes.js
       controllers/event-controller.js
-      data/events.js
-    requests/kampus-api.json   -> Postman koleksiyonu (6 istek)
+      data/seed-events.js
+    requests/kampus-api.json   -> Postman koleksiyonu (7 istek)
     .env.example  .gitignore  package.json  README.md
   frontend/           -> Sprint 4-6: Vite + React + TypeScript (güncel sürüm)
     public/afis.svg
@@ -81,13 +85,25 @@ kampus-etkinlik/
   README.md
 ```
 
+## Sprint 8 — Neler Yapıldı?
+
+- Etkinlikler bellekteki diziden **MongoDB Atlas**'a taşındı; sunucu kapanıp açılsa da kayıtlar durur. Frontend'e dokunulmadı.
+- `mongoose` kuruldu. Bağlantı ayrı modülde (`src/config/database.js`); adres sadece `.env` içindeki `MONGODB_URI`'den okunur. `server.js` önce veritabanına bağlanır, sonra portu dinler.
+- `src/models/event-model.js` içinde `Event` schema'sı ve modeli var: `required`, `trim`, `minlength`/`maxlength`, `enum`, `min`, `default` kuralları ve `timestamps: true` (createdAt, updatedAt).
+- `npm run seed` (`src/seed.js`) koleksiyonu boşaltıp `seed-events.js` içindeki 6 etkinliği ekler; kaç kez çalıştırılırsa çalıştırılsın 6 kayıt kalır.
+- Controller'lar `async/await` ile `Event.find`, `Event.findById`, `Event.create` kullanır. Hatalar `try/catch` + `next(err)` ile hata middleware'ine gider; kullanıcıya sadece `Server error` döner, sunucu çökmez.
+- `GET /events/:id`: geçersiz biçimli (`yok`) ve kayıtsız id'ler 404 döner (`mongoose.isValidObjectId` kontrolü). `POST /events`: schema kuralını bozan veri 400 döner.
+- id'ler artık MongoDB'nin `_id` değeridir (`event-2` çalışmaz). Kategoriler schema'daki `enum` listesine göre `Seminer`, `Atölye`, `Söyleşi`, `Yarışma` oldu.
+- Gerçek bağlantı adresi ve şifre repoda yok: `.env` `.gitignore`'da, `.env.example` yalnızca yer tutucu içerir.
+- Postman koleksiyonu 7 isteğe çıktı (health, liste, tek etkinlik, iki ayrı 404, 201, 400); ayrıntılar `backend/README.md` içinde.
+
 ## Sprint 7 — Neler Yapıldı?
 
 - Frontend'in yanına `backend/` klasörü açıldı; Express, dotenv ve cors kuruldu.
 - Kod görevlerine ayrıldı: `app.js` uygulamayı ve middleware'leri kurar, `server.js` portu dinler, route dosyası adresleri bağlar, controller isteği işleyip yanıt döndürür.
 - Port `.env` dosyasından okunur (`PORT=3000`); `.env` GitHub'a gitmez, örneği `.env.example` içindedir.
 - Endpoint'ler: `GET /health` (öğrenci numarası ile), `GET /events` (isteğe bağlı `?category=`), `GET /events/:id` (yoksa 404), `POST /events` (başarılıysa 201, eksik veri 400). Hatalar `{ "error": { "message": "..." } }` biçimindedir.
-- Veriler bellekte tutulur (6 etkinlik); sunucu yeniden başlayınca POST ile eklenenler kaybolur. Kalıcı veri Sprint 8'de MongoDB ile gelecek.
+- Veriler bellekte tutuluyordu (6 etkinlik); sunucu yeniden başlayınca POST ile eklenenler kayboluyordu. Bu, Sprint 8'de MongoDB ile çözüldü.
 - REST sözleşmesi `backend/README.md` içinde; 6 isteklik Postman koleksiyonu `backend/requests/kampus-api.json` dosyasında.
 
 ## Sprint 6 + Vize — Neler Yapıldı?
